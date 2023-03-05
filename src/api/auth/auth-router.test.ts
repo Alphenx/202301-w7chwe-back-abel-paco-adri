@@ -1,0 +1,46 @@
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongoose from 'mongoose';
+import connectDB from '../../database/connection';
+import { AuthRequest } from './auth-types';
+import request from 'supertest';
+import app from '../../app';
+
+describe('Given an app with auth-router', () => {
+  let mongoServer: MongoMemoryServer;
+
+  beforeAll(async () => {
+    mongoServer = await MongoMemoryServer.create();
+    const mongoUrl = mongoServer.getUri();
+    await connectDB(mongoUrl);
+  });
+
+  afterAll(async () => {
+    await mongoServer.stop();
+    await mongoose.connection.close();
+  });
+
+  describe('When a user wants to register with a valid mail and password', () => {
+    test('Then it should be registered', async () => {
+      const user: AuthRequest = {
+        email: 'abelito@gmail.com',
+        password: 'abel1234',
+      };
+
+      await request(app).post('/auth/register').send(user).expect(201);
+    });
+  });
+
+  describe('When a user wants to register with an invalid email', () => {
+    test('Then it should not be registered', async () => {
+      const invalidUserMail: AuthRequest = {
+        email: '@',
+        password: 'abel1234',
+      };
+
+      await request(app)
+        .post('/auth/register')
+        .send(invalidUserMail)
+        .expect(400);
+    });
+  });
+});
