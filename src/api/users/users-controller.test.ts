@@ -110,9 +110,11 @@ describe('Given a addFriendByIdController from user-controller', () => {
   });
 
   test('when the user is found and the friend is added, then it should respond with a 204 status', async () => {
-    UserModel.updateOne = jest.fn().mockResolvedValueOnce({
-      matchedCount: 1,
-      modifiedCount: 1,
+    UserModel.updateOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValueOnce({
+        matchedCount: 1,
+        modifiedCount: 1,
+      }),
     });
 
     await addFriendByIdController(mockRequest, mockResponse, jest.fn());
@@ -125,8 +127,10 @@ describe('Given a addFriendByIdController from user-controller', () => {
   });
 
   test('when the user is not found, then it should respond with a 404 status', async () => {
-    UserModel.updateOne = jest.fn().mockResolvedValueOnce({
-      matchedCount: 0,
+    UserModel.updateOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValueOnce({
+        matchedCount: 0,
+      }),
     });
 
     await addFriendByIdController(mockRequest, mockResponse, jest.fn());
@@ -139,9 +143,11 @@ describe('Given a addFriendByIdController from user-controller', () => {
   });
 
   test('when there is an error during the update, then it should respond with a 500 status', async () => {
-    UserModel.updateOne = jest.fn().mockResolvedValueOnce({
-      matchedCount: 1,
-      modifiedCount: 0,
+    UserModel.updateOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValueOnce({
+        matchedCount: 1,
+        modifiedCount: 0,
+      }),
     });
 
     await addFriendByIdController(mockRequest, mockResponse, jest.fn());
@@ -171,9 +177,11 @@ describe('Given a addEnemyByIdController from user-controller', () => {
   });
 
   test('when the user is found and the enemy is added, then it should respond with a 204 status', async () => {
-    UserModel.updateOne = jest.fn().mockResolvedValueOnce({
-      matchedCount: 1,
-      modifiedCount: 1,
+    UserModel.updateOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValueOnce({
+        matchedCount: 1,
+        modifiedCount: 1,
+      }),
     });
 
     await addEnemyByIdController(mockRequest, mockResponse, jest.fn());
@@ -186,8 +194,10 @@ describe('Given a addEnemyByIdController from user-controller', () => {
   });
 
   test('when the user is not found, then it should respond with a 404 status', async () => {
-    UserModel.updateOne = jest.fn().mockResolvedValueOnce({
-      matchedCount: 0,
+    UserModel.updateOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValueOnce({
+        matchedCount: 0,
+      }),
     });
 
     await addEnemyByIdController(mockRequest, mockResponse, jest.fn());
@@ -200,9 +210,11 @@ describe('Given a addEnemyByIdController from user-controller', () => {
   });
 
   test('when there is an error during the update, then it should respond with a 500 status', async () => {
-    UserModel.updateOne = jest.fn().mockResolvedValueOnce({
-      matchedCount: 1,
-      modifiedCount: 0,
+    UserModel.updateOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValueOnce({
+        matchedCount: 1,
+        modifiedCount: 0,
+      }),
     });
 
     await addEnemyByIdController(mockRequest, mockResponse, jest.fn());

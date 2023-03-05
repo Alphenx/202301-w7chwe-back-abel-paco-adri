@@ -38,7 +38,7 @@ export const addFriendByIdController: RequestHandler<{
   const updatedFriend = await UserModel.updateOne(
     { _id: id },
     { $push: { friends: idFriend } },
-  );
+  ).exec();
 
   if (updatedFriend.matchedCount === 0) {
     return res.sendStatus(404);
@@ -61,7 +61,7 @@ export const addEnemyByIdController: RequestHandler<{
   const updatedEnemy = await UserModel.updateOne(
     { _id: id },
     { $push: { enemies: idEnemy } },
-  );
+  ).exec();
 
   if (updatedEnemy.matchedCount === 0) {
     return res.sendStatus(404);
