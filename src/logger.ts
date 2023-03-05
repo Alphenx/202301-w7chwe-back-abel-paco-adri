@@ -3,6 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const log = bunyan.createLogger({ name: 'SocialApp' });
-log.level((process.env.BUNYAN_LEVEL as LogLevel) ?? 'info');
+log.level(process.env.BUNYAN_LEVEL as LogLevel);
 
 export default log;
